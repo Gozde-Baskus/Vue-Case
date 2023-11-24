@@ -5,7 +5,9 @@
             <div class="header-main">
                 <div class="logo">
                     <div class="d-flex justify-content-between">
+                        <router-link to="/">
                         <img src="https://arbimg1.mncdn.com/assets2/dist/img/tek-tur-large.gif" alt="Arabam.com Logo">
+                        </router-link>
                         <div class="search-input">
                              <span class="search-icon">
                 <i class="fas fa-search"></i>

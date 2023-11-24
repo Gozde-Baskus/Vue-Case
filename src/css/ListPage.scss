@@ -40,21 +40,30 @@
 .product-item-wrapper{
   display: flex;
   justify-content: space-between;
+  font-size: 12px;
 
   table {
     border-collapse: collapse;
     width: 100%;
+    .item-price{
+      color: red;
+      font-weight: bold;
+    }
   }
 
-  td {
+  td, th {
     border: none;
     padding: 8px;
-    text-align: left;
+    min-width: 80px;
+    text-align: center;
   }
   tr:nth-child(even) {
     background-color: white;
   }
-
+  tr:hover{
+    background: #ffedf1!important;
+    cursor: pointer;
+  }
   tr:nth-child(odd) {
     background-color: #f3f3f3;
 

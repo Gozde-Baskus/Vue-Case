@@ -1,7 +1,12 @@
-.app-header {
+.app-header{
   background-color: #fff;
+}
+ .app-footer {
+  background-color: #e7e7e7;
+   margin-top: 40px;
+}
+.app-header, .app-footer {
   color: #000;
-
   padding: 10px;
   font-size: 18px;
   text-align: center;
@@ -75,5 +80,17 @@
     box-shadow: 0 2px 10px 0 #ededed;
 
   }
+  .user-link {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    color: #ababab;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 10px;
+    text-align: center;
 
+
+  }
 }

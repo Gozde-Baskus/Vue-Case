@@ -18,3 +18,10 @@ export const fetchProducts = (sort, sortDirection, take) => {
         },
     });
 };
+export const fetchProductDetail = (id) => {
+    return apiService.get('/detail', {
+        params: {
+            id,
+        },
+    });
+};

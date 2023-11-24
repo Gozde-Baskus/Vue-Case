@@ -3,16 +3,19 @@
     <div id="app">
         <AppHeader />
         <router-view></router-view>
+        <AppFooter />
     </div>
 </template>
 
 <script>
 import AppHeader from '@/components/AppHeader.vue';
+import AppFooter from '@/components/AppFooter.vue';
 
 export default {
     name: 'App',
     components: {
         AppHeader,
+        AppFooter
     },
 };
 </script>
@@ -24,7 +27,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
 
 }
-body{margin: 0; background: #f6f6f6}
+body{margin: 0; background-color: #f8f8f8!important;}
 .container{
     max-width: 1300px;
     margin: auto auto;
