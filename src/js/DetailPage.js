@@ -1,32 +1,36 @@
-import { fetchProductDetail } from '@/services/apiService';
+import {fetchProductDetail} from '@/services/apiService';
+import {VueperSlides, VueperSlide} from 'vueperslides'
+
+import 'vueperslides/dist/vueperslides.css'
 
 export default {
     name: 'DetailPage',
-    components: {},
+    components: {VueperSlides, VueperSlide},
     data() {
         return {
             product: {},
-            id: this.$route.params.id,
         };
     },
     mounted() {
-        this.id = this.$route.params.id;
         this.fetchProduct();
     },
     methods: {
         async fetchProduct() {
             try {
-                const response = await fetchProductDetail(this.id);
-                this.product = response.data;
-                console.log('bu', response);
+                const response = await fetchProductDetail(this.$route.params.id);
+                const product = response.data
+
+                product.photos = product.photos.map(item => ({
+                    url: item.replace('{0}', '580x435')
+                }));
+
+                this.product = product;
+                console.log(this.product)
             } catch (error) {
                 console.error('Error fetching product details:', error);
             }
         },
-        getValue(type,properties) {
-            const yearObject = properties.find(property => property.name === type);
-            return yearObject ? yearObject.value : '';
 
-        }
+
     },
 };

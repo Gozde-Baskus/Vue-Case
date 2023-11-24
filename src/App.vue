@@ -42,4 +42,6 @@ body{margin: 0; background-color: #f8f8f8!important;}
 ::-webkit-scrollbar-track {
     background-color: transparent;
 }
+.vueperslides, .vueperslides__inner , .vueperslides__parallax-wrapper , .vueperslides__parallax-wrapper{height: 100%!important; max-width: 580px}
+
 </style>

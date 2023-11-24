@@ -33,8 +33,26 @@
       flex: 0.6;
       height: 100%;
       padding: 10px;
-    }
+      display: flex;
+      flex-direction: column;
 
+    }
+    .gallery{
+      img{ width: 100%}
+    }
+    .gallery-list{display: flex;
+      width: 100%;
+    }
+    .gallery-list-item{
+      height: 100px;
+
+      img{
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: cover;
+      }
+    }
     .info-wrapper {
       flex: 0.4;
       padding: 10px;
@@ -53,6 +71,6 @@
         .price{ color: red; font-weight: bold; font-size: 18px}
       }
     }
-  }
 
+  }
 }

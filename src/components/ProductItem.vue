@@ -13,7 +13,7 @@
                 <th>Lokasyon</th>
             </tr>
             <tr v-for="item in products" :key="item.id" @click="getDetail(item.id)">
-                <td><div class="item-img"></div></td>
+                <td><div class="item-img"><img :src="item.photo"/></div></td>
                 <td>{{ item.modelName }}</td>
                 <td>{{ item.title }}</td>
                 <td>{{ getValue('year',item.properties) }}</td>

@@ -69,8 +69,15 @@
 
   }
 .item-img{
-  width: 100px;
-  height: 100px;
+  width: 125px;
+  height: 95px;
   background: #bdbdbd;
+  img{
+    width: 125px;
+    max-width: 125px;
+    height: 95px;
+    display: block;
+    object-fit: cover;
+  }
 }
 }

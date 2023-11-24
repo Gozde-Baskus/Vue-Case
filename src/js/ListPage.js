@@ -22,11 +22,19 @@ export default {
         async fetchProductList() {
             try {
                 const response = await fetchProducts(1, 0, 10);
-                this.productList = response.data;
+                this.productList = response.data.map(product => {
+                    product.photo = product.photo.replace('{0}', '240x180');
+                    return {
+                        ...product,
+
+                    };
+                });
+                console.log(this.productList)
 
             } catch (error) {
                 console.error('Error fetching product list:', error);
             }
         },
+
     },
 };
