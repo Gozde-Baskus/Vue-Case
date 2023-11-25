@@ -7,7 +7,7 @@
                 <FilterBox/>
             </div>
             <div class="list-area">
-                <ProductItem :products="productList"/>
+                <ProductItem />
             </div>
         </div>
 
