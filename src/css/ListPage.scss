@@ -43,6 +43,13 @@
   flex-direction: column;
   justify-content: space-between;
   font-size: 12px;
+  .sorting-wrapper{
+
+    height: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
 
   table {
     border-collapse: collapse;
@@ -120,6 +127,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  &.ellipsis {
+    pointer-events: none;
+    cursor: default;
+  }
 }
 
 .pagination-button:hover {

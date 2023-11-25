@@ -7,7 +7,7 @@
                 <FilterBox/>
             </div>
             <div class="list-area">
-                <ProductItem />
+                <ProductItems />
             </div>
         </div>
 

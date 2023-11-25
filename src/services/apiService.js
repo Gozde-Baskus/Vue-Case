@@ -9,13 +9,13 @@ const apiService = axios.create({
     },
 });
 
-export const fetchProducts = (sort, sortDirection, take, page) => {
+export const fetchProducts = (sort, sortDirection, take, skip) => {
     return apiService.get('/listing', {
         params: {
             sort,
             sortDirection,
             take,
-            page,
+            skip,
         },
     });
 };

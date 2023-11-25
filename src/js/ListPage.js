@@ -1,13 +1,13 @@
 // src/components/ListPage.js
 
 import FilterBox from '@/components/FilterBox.vue';
-import ProductItem from '@/components/ProductItem.vue';
+import ProductItems from '@/components/ProductItems.vue';
 
 export default {
     name: 'ListPage',
     components: {
         FilterBox,
-        ProductItem,
+        ProductItems,
     },
     data() {
         return {
