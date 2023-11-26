@@ -1,18 +1,15 @@
 <!-- components/AppHeader.vue -->
 <template>
     <div class="filter-box">
-        <div class="title">Title</div>
+        <div class="title">{{ title }}</div>
         <div class="content">
-            <ul>
-                <li>AAA</li>
-                <li>AAA</li>
-                <li>AAA</li>
-                <li>AAA</li>
-                <li>AAA</li>
-                <li>AAA</li>
-                <li>AAA</li>
-                <li>AAA</li>
-            </ul>
+            <div class="input-wrapper" >
+                <input placeholder="Min" v-model="this.minDate"/>
+                <input placeholder="Max" v-model="this.maxDate"/>
+                <button class="applyButton" @click="saveDate()">Ara</button>
+            </div>
+
+
 
         </div>
     </div>
@@ -21,9 +18,29 @@
 <script>
 export default {
     name: 'FilterBox',
-    data() {
-        return {};
+    props: {
+        title: String,
     },
+    data() {
+        return {
+            minDate:'',
+            maxDate:''
+        };
+    },
+    methods:{
+        saveDate() {
+            let selectedFilter = localStorage.getItem('selectedFilter');
+            if (selectedFilter) {
+                selectedFilter = JSON.parse(selectedFilter);
+            } else {
+                selectedFilter = {};
+            }
+            selectedFilter.minDate = this.minDate;
+            selectedFilter.maxDate = this.maxDate;
+            localStorage.setItem('selectedFilter', JSON.stringify(selectedFilter));
+        }
+
+    }
 };
 </script>
 

@@ -2,9 +2,7 @@
     <div class="container">
         <div class="filter-list-wrapper">
             <div class="filter-area">
-                <FilterBox/>
-                <FilterBox/>
-                <FilterBox/>
+                <FilterBox title="Yıl"/>
             </div>
             <div class="list-area">
                 <ProductItems />

@@ -1,7 +1,7 @@
 <template>
     <div class="product-item-wrapper">
         <div class="sorting-wrapper">
-
+            <div class="selected-category-title">Satılık 2. El Araba Fiyatları ve Modelleri </div>
             <select v-model="sortOrder" @change="fetchProductList" id="sortOrder">
                 <option value="0">Fiyata Göre Artan</option>
                 <option value="1">Fiyata Göre Azalan</option>
@@ -88,14 +88,14 @@ export default {
             itemsPerPage: 20,
             currentPage: 1,
             sortOrder: 0,
-            sortType:0
+            sortType: 0,
+            selectedFilter: JSON.parse(localStorage.getItem('selectedFilter'))
         };
     },
     mounted() {
         this.fetchProductList();
     },
     watch: {
-
         itemsPerPage() {
             this.fetchProductList();
         },
@@ -141,7 +141,35 @@ export default {
         },
     },
     methods: {
+        saveLocal(){
+            const sortOrderMap = {
+                "0": {sortType: 0, sortOrder: 0},
+                "1": {sortType: 0, sortOrder: 1},
+                "2": {sortType: 1, sortOrder: 0},
+                "3": {sortType: 1, sortOrder: 1},
+                "4": {sortType: 2, sortOrder: 0},
+                "5": {sortType: 2, sortOrder: 1},
+            };
 
+            const {sortType, sortOrder} = sortOrderMap[this.sortOrder] || {sortType: 0, sortOrder: 0};
+
+            this.sortType = sortType;
+            this.sortOrder = sortOrder;
+
+
+            let selectedFilter = localStorage.getItem('selectedFilter');
+            if (selectedFilter) {
+                selectedFilter = JSON.parse(selectedFilter);
+            } else {
+                selectedFilter = {};
+            }
+            selectedFilter.sortType = this.sortType;
+            selectedFilter.sortOrder = this.sortOrder;
+            localStorage.setItem('selectedFilter', JSON.stringify(selectedFilter));
+
+
+
+        },
         getDetail(id) {
             this.$router.push({name: 'detail', params: {id}});
         },
@@ -163,20 +191,8 @@ export default {
             this.itemsPerPage = value;
         },
         async fetchProductList() {
+            this.saveLocal();
 
-            const sortOrderMap = {
-                "0": { sortType: 0, sortOrder: 0 },
-                "1": { sortType: 0, sortOrder: 1 },
-                "2": { sortType: 1, sortOrder: 0 },
-                "3": { sortType: 1, sortOrder: 1 },
-                "4": { sortType: 2, sortOrder: 0 },
-                "5": { sortType: 2, sortOrder: 1 },
-            };
-
-            const { sortType, sortOrder } = sortOrderMap[this.sortOrder] || { sortType: 0, sortOrder: 0 };
-
-            this.sortType = sortType;
-            this.sortOrder = sortOrder;
             try {
                 const response = await fetchProducts(
                     this.sortType,
