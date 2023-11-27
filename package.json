@@ -15,7 +15,8 @@
     "vue": "^3.3.9",
     "vue-router": "^4.2.5",
     "vue-slick-carousel": "^1.0.6",
-    "vueperslides": "^3.5.1"
+    "vueperslides": "^3.5.1",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

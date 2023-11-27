@@ -1,15 +1,8 @@
 <template>
     <div class="product-item-wrapper">
         <div class="sorting-wrapper">
-            <div class="selected-category-title">Satılık 2. El Araba Fiyatları ve Modelleri </div>
-            <select v-model="sortOrder" @change="fetchProductList" id="sortOrder">
-                <option value="0">Fiyata Göre Artan</option>
-                <option value="1">Fiyata Göre Azalan</option>
-                <option value="2">Tarihe Göre Artan</option>
-                <option value="3">Tarihe Göre Azalan</option>
-                <option value="4">Yıla Göre Artan</option>
-                <option value="5">Yıla Göre Azalan</option>
-            </select>
+            <div class="selected-category-title">Satılık 2. El Araba Fiyatları ve Modelleri</div>
+            <SortingSelect/>
         </div>
         <table>
             <tr>
@@ -77,9 +70,11 @@
 
 <script>
 import {fetchProducts} from "@/services/apiService";
+import SortingSelect from "@/components/SortingSelect.vue";
 
 export default {
     name: 'ProductItems',
+    components: {SortingSelect},
 
     data() {
         return {
@@ -87,24 +82,59 @@ export default {
             pageCount: 10,
             itemsPerPage: 20,
             currentPage: 1,
-            sortOrder: 0,
-            sortType: 0,
-            selectedFilter: JSON.parse(localStorage.getItem('selectedFilter'))
         };
     },
     mounted() {
         this.fetchProductList();
     },
     watch: {
+
+        categoryId(){
+            this.currentPage = 1;
+            this.fetchProductList();
+        },
+
+        sortingValues() {
+            this.currentPage = 1;
+            this.fetchProductList();
+
+        },
         itemsPerPage() {
             this.fetchProductList();
         },
         currentPage() {
             this.fetchProductList();
+        },
+        yearFilters() {
+            this.currentPage = 1;
+            this.fetchProductList();
         }
 
     },
     computed: {
+
+        yearFilters() {
+            if (!this.$route.query.minDate && !this.$route.query.maxDate) {
+                return {};
+            }
+            return {minDate: this.$route.query.minDate, maxDate: this.$route.query.maxDate}
+        },
+
+        categoryId(){
+            return this.$route.query.categoryId;
+        },
+
+        sortingValues(){
+            if (!this.$route.query.sortType) {
+                return {};
+            }
+            return {
+                sort: this.$route.query.sortType,
+                sortDirection: this.$route.query.sortDirectory
+            }
+        },
+
+
         paginationButtons() {
             const buttons = [];
             const showEllipsis = this.pageCount > 10;
@@ -141,35 +171,7 @@ export default {
         },
     },
     methods: {
-        saveLocal(){
-            const sortOrderMap = {
-                "0": {sortType: 0, sortOrder: 0},
-                "1": {sortType: 0, sortOrder: 1},
-                "2": {sortType: 1, sortOrder: 0},
-                "3": {sortType: 1, sortOrder: 1},
-                "4": {sortType: 2, sortOrder: 0},
-                "5": {sortType: 2, sortOrder: 1},
-            };
 
-            const {sortType, sortOrder} = sortOrderMap[this.sortOrder] || {sortType: 0, sortOrder: 0};
-
-            this.sortType = sortType;
-            this.sortOrder = sortOrder;
-
-
-            let selectedFilter = localStorage.getItem('selectedFilter');
-            if (selectedFilter) {
-                selectedFilter = JSON.parse(selectedFilter);
-            } else {
-                selectedFilter = {};
-            }
-            selectedFilter.sortType = this.sortType;
-            selectedFilter.sortOrder = this.sortOrder;
-            localStorage.setItem('selectedFilter', JSON.stringify(selectedFilter));
-
-
-
-        },
         getDetail(id) {
             this.$router.push({name: 'detail', params: {id}});
         },
@@ -190,16 +192,19 @@ export default {
         changePerPage(value) {
             this.itemsPerPage = value;
         },
-        async fetchProductList() {
-            this.saveLocal();
+            async fetchProductList() {
+            //this.saveLocal();
 
             try {
-                const response = await fetchProducts(
-                    this.sortType,
-                    this.sortOrder,
-                    this.itemsPerPage,
-                    (this.currentPage - 1) * this.itemsPerPage,
-                );
+                const response = await fetchProducts({
+                    sort: this.sortingValues.sort,
+                    sortDirection: this.sortingValues.sortDirection,
+                    categoryId: this.categoryId,
+                    take: this.itemsPerPage,
+                    skip: (this.currentPage - 1) * this.itemsPerPage,
+                    minYear: this.yearFilters.minDate,
+                    maxYear: this.yearFilters.maxDate,
+                });
 
                 const totalCount = 1000; // Responsedan gelmesini beklediğim toplam sayı
                 this.pageCount = Math.ceil(totalCount / this.itemsPerPage);
