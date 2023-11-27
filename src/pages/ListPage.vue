@@ -3,7 +3,7 @@
         <div class="filter-list-wrapper">
             <div class="filter-area">
                 <YearFilterBox title="Yıl"/>
-                <CategoryFilterBox title="Categories" />
+                <CategoryFilterBox title="Kategori" />
             </div>
             <div class="list-area">
                 <ProductItems />
